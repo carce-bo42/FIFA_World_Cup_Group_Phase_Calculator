@@ -1,6 +1,11 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <algorithm>
+
+# define GREEN_BOLD "\e[1;32m"
+# define RED_BOLD "\e[1;31m"
+# define UNSET "\033[0m"
 
 class Team {
 
@@ -78,23 +83,25 @@ void fill_possible_results(std::vector<std::vector<int>>& possible_results) {
 }
 
 void print_result(std::vector<Team> group, std::vector<int> result) {
-    // this line is misleading because LOSS means someone WIN and viceversa
-    /*for (int i = 0; i < 6; i++) {
-        if (result[i] == 0) {
-            std::cout << "LOSS ";
-        } else if (result[i] == 1) {
-            std::cout << "DRAW ";
-        } else {
-            std::cout << "WIN ";
-        }
-    }
-    std::cout << std::endl;
-    */
+    
+    std::vector<int> points;
     for (int i = 0; i < 4; i++) {
-        std::cout << group[i].name << "  W : " << group[i].wins
-                                   << ", L : " << group[i].losses
-                                   << ", D : " << group[i].draws
-                                   << ", points: " << group[i].getPoints() << std::endl; 
+        points.push_back(group[i].getPoints());
+    }
+    std::sort(points.begin(), points.end(), std::greater<int>());
+
+    for (int i = 0; i < 4; i++) {
+        std::cout << group[i].name;
+        if (group[i].getPoints() >= *(points.begin() + 1)) {
+            std::cout << GREEN_BOLD;
+        } else {
+            std::cout << RED_BOLD;
+        }
+        std::cout << "  W : " << group[i].wins
+                  << ", L : " << group[i].losses
+                  << ", D : " << group[i].draws
+                  << ", points: " << group[i].getPoints()
+                  << UNSET << std::endl; 
     }
     std::cout << std::endl;
     std::cout << std::endl;
