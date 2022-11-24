@@ -58,14 +58,15 @@ void match( Team& A, Team& B, int resultado) {
     }
 }
 
-// Possible combinations of 6 match results with repetition and without order.
+// Possible combinations of 6 match results with repetition and order.
 void fill_possible_results(std::vector<std::vector<int>>& possible_results) {
+
     for (int i1 = 0; i1 < 3; i1++) {
-        for (int i2 = i1; i2 < 3; i2++) {
-            for (int i3 = i2; i3 < 3; i3++) {
-                for (int i4 = i3; i4 < 3; i4++) {
-                    for (int i5 = i4; i5 < 3; i5++) {
-                        for (int i6 = i5; i6 < 3; i6++) {
+        for (int i2 = 0; i2 < 3; i2++) {
+            for (int i3 = 0; i3 < 3; i3++) {
+                for (int i4 = 0; i4 < 3; i4++) {
+                    for (int i5 = 0; i5 < 3; i5++) {
+                        for (int i6 = 0; i6 < 3; i6++) {
                             std::vector<int> result;
                             result.push_back(i1);
                             result.push_back(i2);
@@ -130,4 +131,5 @@ int main() {
             group[i].reset();
         }
     }
+	return 0;
 }
